@@ -1,0 +1,294 @@
+<div class="py-4">
+  <div class="row">
+    <div class="my-2 col-xl-8 col-md-7">
+      <div class="card">
+        <div
+          class="card-header card-header-shadow gradient-info text-white border-0 inside-card"
+        >
+          <h2 class="font-weight-normal mb-1 text-capitalize">Order number [ {{orderData.id}} ]</h2>
+          <p class="card-text mb-1"></p>
+        </div>
+        <div class="card-body">
+          <form class="row">
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Agent</label>
+              <input
+                type="text"
+                class="form-control"
+                name="fullname"
+                [(ngModel)]="orderData.agent.fullname"
+              />
+              <button></button>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Product Type</label>
+              <select class="form-control" name="productType"
+                      [(ngModel)]="orderData.productTypeId">
+                <option *ngFor="let productType of productTypes$ | async" [value]="productType.id">{{productType.type}}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Customer</label>
+              <input
+                type="text"
+                class="form-control"
+                name="customerName"
+                [(ngModel)]="orderData.customerName"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Customer Phone</label>
+              <input
+                type="text"
+                class="form-control"
+                name="customerPhone"
+                [(ngModel)]="orderData.customerPhone"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Country</label>
+              <select class="form-control" name="country"
+                      [(ngModel)]="orderData.agent.countryId"
+                      (change)="birthCountryChange($event)">
+                <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">City</label>
+              <select
+                class="form-control"
+                name="city"
+                [(ngModel)]="orderData.agent.cityId">
+                <option *ngFor="let city of cities$ | async" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Payment Type</label>
+              <select class="form-control" name="paymentType"
+                      [(ngModel)]="orderData.paymentTypeId">
+                <option *ngFor="let paymentType of paymentTypes$ | async" [value]="paymentType.id">{{paymentType.type}}</option>
+              </select>
+            </div>
+
+
+            <div  class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Description</label>
+              <input
+
+                type="text"
+                class="form-control"
+                name="description"
+                [(ngModel)]="orderData.description"
+              />
+            </div>
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Pick up Location Latitude</label>
+              <input
+                type="text"
+                class="form-control"
+                name="pickupLocationLat"
+                [(ngModel)]="orderData.pickupLocationLat"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Pick up Location Longitude</label>
+              <input
+                type="text"
+                class="form-control"
+                name="pickupLocationLong"
+                [(ngModel)]="orderData.pickupLocationLong"
+              />
+            </div>
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Drop Location Latitude</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dropLocationLat"
+                [(ngModel)]="orderData.dropLocationLat"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Drop Location Longitude</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dropLocationLong"
+                [(ngModel)]="orderData.dropLocationLong"
+              />
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">address</label>
+              <input
+                type="text"
+                class="form-control"
+                name="address"
+                [(ngModel)]="orderData.customerAddress"
+              />
+            </div>
+
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <button (click)="showTemplate(orderItems)" class="btn btn-warning text-capitalize">
+                Order Items
+              </button>
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <button (click)="showTemplate(orderStatus)" class="btn btn-warning text-capitalize">
+                Order Status
+              </button>
+            </div>
+
+
+            <div   class="col-md-12 d-flex justify-content-center">
+              <button (click)="save()" class="btn btn-info text-capitalize">
+                Save
+              </button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #orderItems>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Items</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row">
+          <div class="form-group col-xl-6 col-md-12">
+            <table style="width:100%;height:100%">
+              <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Description</th>
+              </tr>
+              <tr *ngFor="let item of orderData.orderItems  " >
+                <td>{{item.item}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.price}}</td>
+                <td>{{item.description}}</td>
+              </tr>
+            </table>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="saveOrderItems()">Save</button>
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
+    <ng-template #orderStatus>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Items</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row">
+          <div class="form-group col-xl-6 col-md-12">
+            <table style="width:100%;height:100%">
+              <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th></th>
+
+              </tr>
+              <tr *ngFor="let status of orderData.orderCurrentStatus  " >
+                <td>{{getStatusName( status.statusTypeId)}}</td>
+                <td>{{status.creationDate}}</td>
+                <td *ngIf="status.isCurrent">Current</td>
+              </tr>
+            </table>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
+    <div class="my-2 col-xl-4 col-md-5">
+      <div class="card">
+
+        <div *ngIf="orderData.agent.image == null || orderData.agent.image ===''  " class="avatar">
+          <img
+            src="https://ncbae.edu.pk/alhamra_new/wp-content/uploads/2016/08/person-2-200x200.jpg"
+            alt=""
+          />
+        </div>
+        <div *ngIf="orderData.agent.image != null && orderData.agent.image !==''  " class="avatar">
+          <img
+            [src]="baseURL+
+            '/' +
+             agentPath +
+             '/' +
+             orderData.agent.id +
+             '/'+
+             folderPersonalPhotosPath +
+             '/' + orderData.agent.image"
+            alt=""
+          />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title text-center">{{ orderData.agent.fullname }}</h2>
+          <div class="data my-3">
+            <div class="part my-2">
+              <i class="far fa-at"></i>
+              {{ orderData.agent.email }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-map-marker-alt"></i>
+              {{
+              orderData.agent.address
+                ? orderData.agent.address
+                : 'none'
+              }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-phone-alt"></i>
+              {{
+              orderData.agent.mobile
+                ? orderData.agent.mobile
+                : 'none'
+              }}
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

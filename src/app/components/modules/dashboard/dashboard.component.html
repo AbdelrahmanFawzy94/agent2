@@ -1,0 +1,179 @@
+<section class="layout container-fluid p-0">
+  <nav class="side-nav" (click)="openNav()" [class.small]="closedNav">
+    <div class="overlay">
+      <div class="logo" (click)="navigateToDashboard()">
+        <a href="">
+          <app-svg-logo></app-svg-logo>
+          <span>sender</span>
+        </a>
+      </div>
+      <div class="user" (click)="toggleUserMenu()">
+        <div class="img" [class.active]="openUserMenu">
+          <img class="user-img" src="../../../assets/images/user.png" alt="" />
+          <span class="user-name">{{ loggedUser.fullname }}</span>
+        </div>
+        <ul #userMenu [class.open]="openUserMenu">
+          <li class="user-menu-item" [routerLink]="['profile']">
+            <i class="fal fa-user-alt"></i>
+            <a href="">profile</a>
+          </li>
+          <li class="user-menu-item danger">
+            <i class="fal fa-power-off"></i>
+            <a href="">log out</a>
+          </li>
+          <!-- <li class="user1-menu-item" [routerLink]="['users']">
+            <i class="fal fa-user1-friends"></i>
+            <a href="">users</a>
+          </li> -->
+        </ul>
+      </div>
+      <div class="menu" [class.responsive]="openUserMenu">
+        <ul #menu class="primary-menu">
+          <li class="primary-link active">
+            <div class="link-element" [routerLink]="['./']">
+              <div class="icon">
+                <i class="fad fa-th-large"></i>
+              </div>
+              <a href="">dashboard</a>
+            </div>
+          </li>
+
+          <!-- <li class="primary-link">
+            <div class="link-element dropper">
+              <div class="icon">
+                <i class="fas fa-cog"></i>
+              </div>
+              <a href="">settings</a>
+            </div>
+            <ul class="sub-menu">
+              <li class="sub-links" [routerLink]="['./admins']">
+                <div class="icon">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <a href="">admins</a>
+              </li>
+              <li class="sub-links" [routerLink]="['configurations']">
+                <div class="icon">
+                  <i class="fal fa-cog"></i>
+                </div>
+                <a href="">configurations</a>
+              </li>
+              <li class="sub-links" [routerLink]="['country-price']">
+                <div class="icon">
+                  <i class="fad fa-funnel-dollar"></i>
+                </div>
+                <a href="">Country Price</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="primary-link">
+            <div class="link-element dropper">
+              <div class="icon">
+                <i class="fas fa-user-headset"></i>
+              </div>
+              <a href="">Supports</a>
+            </div>
+            <ul class="sub-menu">
+              <li class="sub-links" [routerLink]="['customer-support']">
+                <div class="icon">
+                  <i class="fas fa-user-headset"></i>
+                </div>
+                <a href="">customer support</a>
+              </li>
+              <li class="sub-links" [routerLink]="['supports']">
+                <div class="icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                <a href="">all Supports</a>
+              </li>
+            </ul>
+          </li> -->
+
+          <li class="primary-link">
+            <div class="link-element dropper">
+              <div class="icon">
+                <i class="fas fa-people-carry"></i>
+              </div>
+              <a href="">orders</a>
+            </div>
+            <ul class="sub-menu">
+              <li class="sub-links" [routerLink]="['new-order']">
+                <div class="icon">
+                  <i class="fas fa-box-open"></i>
+                </div>
+                <a href="">making order</a>
+              </li>
+              <li class="sub-links" [routerLink]="['orders']">
+                <div class="icon">
+                  <i class="fas fa-people-carry"></i>
+                </div>
+                <a href="">all Orders</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="dashboard" [class.collapsed-sidenav]="closedNav">
+    <nav [class.scrolled]="scrolled" class="top-nav">
+      <div class="left-nav">
+        <button class="menu-toggler" (click)="toggleNav()">
+          <i class="far fa-ellipsis-v" [hidden]="closedNav"></i>
+          <i class="far fa-list-ul" [hidden]="!closedNav"></i>
+        </button>
+        <span>{{ currentPage }}</span>
+      </div>
+      <div class="right-nav">
+        <ul class="icons">
+          <li class="icon">
+            <i (click)="toggleNotification($event)" class="fas fa-comment"></i>
+            <span class="badge rounded-circle badge-primary">4</span>
+            <ul class="icon-menu">
+              <li class="link">
+                <a href="">Mike John responded to your email</a>
+              </li>
+              <li class="link">
+                <a href="">You have 5 new tasks</a>
+              </li>
+              <li class="link">
+                <a href="">You're now friend with Andrew</a>
+              </li>
+              <li class="link">
+                <a href="">Another Notification</a>
+              </li>
+              <li class="link">
+                <a href="">Another One</a>
+              </li>
+            </ul>
+          </li>
+          <li class="icon">
+            <i (click)="toggleNotification($event)" class="fas fa-bell"></i>
+            <span class="badge rounded-circle badge-primary" hidden>4</span>
+            <ul class="icon-menu">
+              <li class="link">
+                <a href="">Mike John responded to your email</a>
+              </li>
+              <li class="link">
+                <a href="">You have 5 new tasks</a>
+              </li>
+              <li class="link">
+                <a href="">You're now friend with Andrew</a>
+              </li>
+              <li class="link">
+                <a href="">Another Notification</a>
+              </li>
+              <li class="link">
+                <a href="">Another One</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div #container class="container-fluid content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

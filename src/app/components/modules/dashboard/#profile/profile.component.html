@@ -1,0 +1,213 @@
+<div class="py-4">
+  <div class="row">
+    <div class="my-2 col-xl-8 col-md-7">
+      <div class="card">
+        <div
+          class="card-header card-header-shadow gradient-info text-white border-0 inside-card"
+        >
+          <h2 class="font-weight-normal mb-1 text-capitalize">profile</h2>
+          <p class="card-text mb-1">complete your profile</p>
+        </div>
+        <div class="card-body">
+          <form class="row">
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">email / username </label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                [(ngModel)]="userData.email"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">full name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="fullname"
+                [(ngModel)]="userData.fullname"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Birth Country</label>
+              <select class="form-control" name="birthCountry"
+                      [(ngModel)]="userData.countryId"
+              (change)="birthCountryChange($event)">
+                <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Birth City</label>
+              <select
+                class="form-control"
+                name="birthCity"
+
+                [(ngModel)]="userData.cityId">
+                <option *ngFor="let city of cities$ | async" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Residence Country</label>
+              <select class="form-control" name="birthCountry"
+                      [(ngModel)]="userData.residenceCountryId"
+                      (change)="residenceCountryChange($event)">
+                <option *ngFor="let country of residenceCountries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Residence City</label>
+              <select
+                class="form-control"
+                name="birthCity"
+
+                [(ngModel)]="userData.residenceCityId">
+                <option *ngFor="let city of residenceCities$ | async" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">address</label>
+              <input
+                type="text"
+                class="form-control"
+                name="address"
+                [(ngModel)]="userData.address"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">birth year</label>
+              <input
+                type="text"
+                class="form-control"
+                name="birthYear"
+                [(ngModel)]="userData.birthDay + '/'+ userData.birthMonth + '/'+ userData.birthYear"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">gander</label>
+              <select
+                class="form-control"
+                name="gender"
+                [(ngModel)]="userData.gender"
+              >
+                <option value="Male" >male</option>
+                <option value="Female">female</option>
+              </select>
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">mobile</label>
+              <input
+                type="text"
+                class="form-control"
+                name="mobile"
+                [(ngModel)]="userData.mobile"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">image</label>
+              <input
+                type="file"
+                class="form-control"
+                name="image"
+                [(ngModel)]="userData.image"
+              />
+            </div>
+            <div class="form-group col-md-12 my-3">
+              <div class="form-check-for-android">
+                <input
+                  class="form-check-android"
+                  type="checkbox"
+                  id="switch1"
+                />
+                <label class="form-check-android-label" for="switch1"></label>
+                <label for="switch1" class="mx-3">some options</label>
+              </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center">
+              <button (click)="update()" class="btn btn-info text-capitalize">
+                update
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="my-2 col-xl-4 col-md-5">
+      <div class="card">
+<!--        <div *ngIf="userData.image != null && userData.image !==''  " class="card-header border-0 p-0 overflow-hidden img-cover">-->
+<!--          <img-->
+<!--            class="w-100"-->
+<!--            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsXNtvm-pA4lpALltVkyWmOUlTDIfACJjnlA&usqp=CAU"-->
+<!--            alt=""-->
+<!--          />-->
+<!--        </div>-->
+        <div *ngIf="userData.image == null || userData.image ===''  " class="avatar">
+          <img
+            src="https://ncbae.edu.pk/alhamra_new/wp-content/uploads/2016/08/person-2-200x200.jpg"
+            alt=""
+          />
+        </div>
+        <div *ngIf="userData.image != null && userData.image !==''  " class="avatar">
+          <img
+            [src]="baseURL+
+            '/' +
+             supportPath +
+             '/' +
+             userData.id +
+             '/'+
+             folderPersonalPhotosPath +
+             '/' + userData.image"
+            alt=""
+          />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title text-center">{{ userData.fullname }}</h2>
+          <div class="data my-3">
+            <div class="part my-2">
+              <i class="far fa-at"></i>
+              {{ userData.email }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-map-marker-alt"></i>
+              {{
+                userData.address
+                  ? userData.address
+                  : 'none'
+              }}
+            </div>
+            <div class="part my-2">
+              <i class="fal fa-birthday-cake"></i>
+              {{
+              userData.birthYear
+                  ? userData.birthDay +'/'+ userData.birthMonth + '/'+userData.birthYear
+                  : 'none'
+              }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-phone-alt"></i>
+              {{
+                userData.mobile
+                  ? userData.mobile
+                  : 'null'
+              }}
+            </div>
+            <div class="text-center">
+              <button
+                class="btn btn-default text-white text-capitalize"
+                [routerLink]="['../']"
+              >
+                back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

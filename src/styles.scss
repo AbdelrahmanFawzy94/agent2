@@ -1,0 +1,76 @@
+/* You can add global styles to this file, and also import other style files */
+
+$primary-color: #df7960;
+// $primary-color: #e9791e;
+$secondry-color: #82b29a;
+$default-color: #3c405b;
+$third-color: #f4f1de;
+$fourd-yellow: #f2cc8e;
+
+$info: #00bcd4 !default;
+$warning: #ff9800 !default;
+$danger: #f44336 !default;
+$success: #4caf50 !default;
+$rose: #e91e63 !default;
+
+$black: #000;
+$white: #fff;
+
+$body-bg: #f2f2f2;
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: $body-bg;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: darken($body-bg, $amount: 5);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary-color;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $default-color;
+}
+
+// animation
+
+.animated-scaling {
+  animation: scaling 0.7s ease-out;
+}
+
+@keyframes scaling {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

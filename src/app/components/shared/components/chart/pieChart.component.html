@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-header bg-white py-0">
+    <div class="mat-card-header">
+      <i class="fas fa-chart-pie" [class]="iconBgColor"></i>
+      <span class="text-capitalize">{{ chartTitle }}</span>
+    </div>
+  </div>
+  <div class="card-body mat-card-body">
+    <canvas
+      baseChart
+      [data]="chartValues"
+      [labels]="chartLabels"
+      [chartType]="chartType"
+      [options]="chartOptions"
+      [legend]="chartLegendVisibility"
+      [colors]="chartColors"
+    >
+    </canvas>
+  </div>
+  <div class="card-footer text-muted">
+    <i [class]="messageIconClass"></i>
+    <span>
+      {{ miniMessage }}
+    </span>
+  </div>
+</div>

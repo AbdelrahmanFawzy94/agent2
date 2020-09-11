@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header bg-white py-0">
+    <div class="mat-card-header">
+      <i class="fas fa-user-check bg-danger"></i>
+      <span class="text-capitalize mx-3">Admins</span>
+    </div>
+  </div>
+  <div class="card-body mat-card-body">
+    <div class="tabs">
+      <button
+        (click)="newAdmin()"
+        class="btn btn-sm btn-info mx-1 mt-1 text-capitalize"
+      >
+        Add new Admin
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <div *ngIf="isLoading" class="overlay">
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+      </div>
+      <div class="table-container">
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- id Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+          </ng-container>
+
+          <!-- avatar Column -->
+          <ng-container matColumnDef="avatar">
+            <mat-header-cell *matHeaderCellDef> Photo </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <img
+                [src]="
+                  baseURL +
+                  assetsPath +
+                  element.id +
+                  '/' +
+                  personalPhotosPath +
+                  '/' +
+                  element.image
+                "
+                alt=""
+              />
+            </mat-cell>
+          </ng-container>
+
+          <!-- first_name Column -->
+          <ng-container matColumnDef="fullName">
+            <mat-header-cell *matHeaderCellDef> Full name </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.fullname }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- email Column -->
+          <ng-container matColumnDef="mobile">
+            <mat-header-cell *matHeaderCellDef> Mobile </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              {{ element.mobile }}
+            </mat-cell>
+          </ng-container>
+
+          <!-- last_name Column -->
+          <!--          <ng-container matColumnDef="last_name">-->
+          <!--            <mat-header-cell *matHeaderCellDef> last name </mat-header-cell>-->
+          <!--            <mat-cell *matCellDef="let element">-->
+          <!--              {{ element.last_name }}-->
+          <!--            </mat-cell>-->
+          <!--          </ng-container>-->
+
+          <mat-header-row
+            *matHeaderRowDef="displayedColumns; sticky: true"
+          ></mat-header-row>
+          <mat-row
+            (click)="routeUser(row.id)"
+            *matRowDef="let row; columns: displayedColumns"
+          ></mat-row>
+        </mat-table>
+      </div>
+    </div>
+    <mat-paginator
+      [length]="total"
+      [pageSize]="perPage"
+      [pageSizeOptions]="[5, 10]"
+      (page)="onPageChanges($event)"
+    ></mat-paginator>
+  </div>
+</div>

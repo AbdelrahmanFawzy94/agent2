@@ -1,0 +1,48 @@
+<div class="container-fluid" (keyup.enter)="submit($event)">
+  <div class="overlay">
+    <div class="login">
+      <div class="logo">
+        <app-login-svg-logo></app-login-svg-logo>
+      </div>
+      <div class="form">
+        <div class="form-group">
+          <div class="label">
+            <i class="fal fa-user"></i>
+            <label>username</label>
+          </div>
+          <input
+            #username
+            (input)="LabelVisability(username)"
+            type="text"
+            autocomplete="off"
+            [(ngModel)]="loginUser.email"
+          />
+        </div>
+        <div class="form-group">
+          <div class="label">
+            <i class="fal fa-lock"></i>
+            <label>password</label>
+          </div>
+          <input
+            #password
+            (input)="LabelVisability(password)"
+            type="password"
+            autocomplete="off"
+            [(ngModel)]="loginUser.password"
+          />
+        </div>
+        <div class="help">
+          <a href="">need help?</a>
+        </div>
+        <div class="form-group submit">
+          <button (click)="submit($event)" class="text-uppercase">login</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+zezo@gmail.com
+123456
+ -->

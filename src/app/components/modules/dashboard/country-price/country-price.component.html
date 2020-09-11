@@ -1,0 +1,127 @@
+<div class="py-4">
+  <div class="row">
+    <div class="my-2 col-xl-8 col-md-7">
+      <div class="card">
+        <div
+          class="card-header card-header-shadow gradient-info text-white border-0 inside-card"
+        >
+          <h2 class="font-weight-normal mb-1 text-capitalize">Countries Prices</h2>
+          <p class="card-text mb-1"></p>
+        </div>
+        <div class="card-body">
+          <form class="row">
+
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Country</label>
+              <select class="form-control" name="country"
+                      [(ngModel)]="countryPrice.countryId">
+                <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Kilometers </label>
+              <input
+                type="text"
+                class="form-control"
+                name="kilometers"
+                [(ngModel)]="countryPrice.kilometers"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Price </label>
+              <input
+                type="text"
+                class="form-control"
+                name="price"
+                [(ngModel)]="countryPrice.price"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Extra kilometers </label>
+              <input
+                type="text"
+                class="form-control"
+                name="extraKilometers"
+                [(ngModel)]="countryPrice.extraKilometers"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Extra kilometers price </label>
+              <input
+                type="text"
+                class="form-control"
+                name="extraKiloPrice"
+                [(ngModel)]="countryPrice.extraKiloPrice"
+              />
+            </div>
+
+            <div   class="col-md-12 d-flex justify-content-center">
+              <button (click)="save()" class="btn btn-info text-capitalize">
+                Save
+              </button>
+            </div>
+
+
+
+
+            <div class="form-group col-xl-12 col-md-12">
+
+              <br><br>
+              <table style="width:100%;height:100%">
+                <tr>
+                  <th>Country</th>
+                  <th>Kilometers</th>
+                  <th>Price</th>
+                  <th>Extra kilometers</th>
+                  <th>Extra kilometers price</th>
+                </tr>
+                <tr *ngFor="let countryPriceItem of countriesPrices$ | async  " >
+                  <td>{{countryPriceItem.country.name}}</td>
+                  <td>{{countryPriceItem.kilometers}}</td>
+                  <td>{{countryPriceItem.price}}</td>
+                  <td>{{countryPriceItem.extraKilometers}}</td>
+                  <td>{{countryPriceItem.extraKiloPrice}}</td>
+                </tr>
+              </table>
+            </div>
+
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #orderItems>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Items</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row">
+          <div class="form-group col-xl-6 col-md-12">
+
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" >Save</button>
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
+
+  </div>
+</div>

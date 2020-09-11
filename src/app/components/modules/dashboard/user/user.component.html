@@ -1,0 +1,388 @@
+<div class="py-4">
+  <div class="row">
+    <div class="my-2 col-xl-8 col-md-7">
+      <div class="card">
+        <div
+          class="card-header card-header-shadow gradient-info text-white border-0 inside-card"
+        >
+          <h2 class="font-weight-normal mb-1 text-capitalize">profile</h2>
+          <p class="card-text mb-1"></p>
+        </div>
+        <div class="card-body">
+          <form class="row">
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">email </label>
+              <input
+                type="email"
+                class="form-control"
+                name="email"
+                [(ngModel)]="userData.email"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">{{ (userType != 'agent' )?  'full' : ''}} name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="fullname"
+                [(ngModel)]="userData.fullname"
+              />
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">{{ (userType != 'agent' )?  'Birth' : ''}}  Country</label>
+              <select class="form-control" name="birthCountry"
+                      [(ngModel)]="userData.countryId"
+                      (change)="birthCountryChange($event)">
+                <option *ngFor="let country of countries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">{{ (userType != 'agent' )?  'Birth' : ''}} City</label>
+              <select
+                class="form-control"
+                name="birthCity"
+                [(ngModel)]="userData.cityId">
+                <option *ngFor="let city of cities$ | async" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+
+
+
+
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">birth date</label>
+              <input
+                type="text"
+                class="form-control"
+                name="birthdate"
+                [(ngModel)]=" userData.birthDay + '/'+ userData.birthMonth + '/'+ userData.birthYear"
+              />
+            </div>
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">gander</label>
+              <select
+                class="form-control"
+                name="gender"
+                [(ngModel)]="userData.gender"
+              >
+                <option value="Male" >male</option>
+                <option value="Female">female</option>
+              </select>
+            </div>
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">mobile</label>
+              <input
+                type="text"
+                class="form-control"
+                name="mobile"
+                [(ngModel)]="userData.mobile"
+              />
+            </div>
+
+
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Residence Country</label>
+              <select class="form-control" name="residenceCountry"
+                      [(ngModel)]="userData.residenceCountryId"
+                      (change)="residenceCountryChange($event)">
+                <option *ngFor="let country of residenceCountries$ | async" [value]="country.id">{{country.name}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Residence City</label>
+              <select
+                class="form-control"
+                name="residenceCity"
+
+                [(ngModel)]="userData.residenceCityId">
+                <option *ngFor="let city of residenceCities$ | async" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Residence Expire</label>
+              <input
+                type="text"
+                class="form-control"
+                name="residenceExpire"
+                [(ngModel)]="   userData.residenceExpireDay + '/'+ userData.residenceExpireMonth + '/'+ userData.residenceExpireYear"
+              />
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">address</label>
+              <input
+                type="text"
+                class="form-control"
+                name="address"
+                [(ngModel)]="userData.address"
+              />
+            </div>
+
+            <div *ngIf="userType != 'agent'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">National Number</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nationalNumber"
+                [(ngModel)]="userData.nationalNumber"
+              />
+            </div>
+
+
+            <div *ngIf="userType == 'driver'" class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">National Number Photo</label>
+              <input type="text" (click)="openFileInput($event)" />
+              <input
+                type="file"
+                class="form-control"
+                name="nationalNumberPhoto"
+                [(ngModel)]="userData.nationalNumberImageName"
+                (change)="onNationalNumberPhotoChange($event)"
+              />
+            </div>
+
+
+
+<!--            <div class="form-group col-xl-6 col-md-12">-->
+<!--              <label class="text-capitalize">image</label>-->
+<!--              <input-->
+<!--                type="file"-->
+<!--                class="form-control"-->
+<!--                name="image"-->
+<!--                [(ngModel)]="userData.image"-->
+<!--              />-->
+<!--            </div>-->
+
+
+            <div *ngIf="userType == 'driver'" class="form-group col-xl-6 col-md-12">
+              <button (click)="showVehicleDetails(vehicleDetails)" class="btn btn-warning text-capitalize">
+                Vehicle Details
+              </button>
+            </div>
+
+            <div *ngIf="isReviewing == false">
+              <div class="form-group col-md-12 my-3">
+                <div class="form-check-for-android">
+                  <input
+                    class="form-check-android"
+                    type="checkbox"
+                    id="stopUser"
+                    (change)="stopUserChange($event)"
+                  />
+                  <label class="form-check-android-label" for="stopUser"></label>
+                  <label for="stopUser" class="mx-3">User Stopped</label>
+                </div>
+              </div>
+
+              <div class="form-group col-md-12 my-3">
+                <div class="form-check-for-android">
+                  <input
+                    class="form-check-android"
+                    type="checkbox"
+                    id="suspendUser"
+                    (change)="suspendUserChange($event)"
+                  />
+                  <label class="form-check-android-label" for="suspendUser"></label>
+                  <label for="suspendUser" class="mx-3">User Suspended</label>
+                </div>
+              </div>
+
+            </div>
+
+
+
+
+            <div *ngIf="isReviewing" class="col-md-12 d-flex justify-content-center">
+              <button (click)="acceptProfile()" class="btn btn-success text-capitalize">
+                Accept Profile
+              </button>
+            </div>
+
+            <div *ngIf="isReviewing == false"  class="col-md-12 d-flex justify-content-center">
+              <button (click)="save()" class="btn btn-info text-capitalize">
+                Save
+              </button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #vehicleDetails>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Vehicle Details</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row">
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">License Number </label>
+            <input
+              type="text"
+              class="form-control"
+              name="licenseNumber"
+              [(ngModel)]="userVehicle.licenseNumber"
+            />
+          </div>
+
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">License Picture </label>
+            <input type="text" (click)="openFileInput($event)" />
+            <input
+              type="file"
+              class="form-control"
+              name="licensePicture"
+              [(ngModel)]="userVehicle.licenseImageName"
+              (change)="onLicensePictureChange($event)"
+            />
+          </div>
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">Vehicle Type</label>
+            <select class="form-control" name="vehicleType"
+                    [(ngModel)]="userVehicle.vehicleId">
+              <option *ngFor="let vehicles of vehicles$ | async" [value]="vehicles.id">{{vehicles.type}}</option>
+            </select>
+          </div>
+
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">Vehicle Model </label>
+            <input
+              type="text"
+              class="form-control"
+              name="vehicleModel"
+              [(ngModel)]="userVehicle.model"
+            />
+          </div>
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">Plate Number </label>
+            <input
+              type="text"
+              class="form-control"
+              name="plateNumber"
+              [(ngModel)]="userVehicle.plateNumber"
+            />
+          </div>
+
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">Vehicle Picture </label>
+            <input type="text" (click)="openFileInput($event)" />
+            <input
+              type="file"
+              class="form-control"
+              name="vehiclePicture"
+              [(ngModel)]="userVehicle.vehicleImageName"
+              (change)="onVehiclePictureChange($event)"
+            />
+          </div>
+
+          <div class="form-group col-xl-6 col-md-12">
+            <label class="text-capitalize">box Type</label>
+            <select class="form-control" name="boxType"
+                    [(ngModel)]="userBox.boxTypeId">
+              <option *ngFor="let boxType of boxTypes$ | async" [value]="boxType.id">{{boxType.type}}</option>
+            </select>
+          </div>
+
+        </form>
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="saveVehicleDetails()">Save</button>
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
+
+
+<!--    <jw-modal id="custom-modal-1">-->
+<!--      <h1>A Custom Modal!</h1>-->
+<!--      <p>Home page text: <input type="text" [(ngModel)]="bodyText" /></p>-->
+<!--      <button (click)="closeModal('custom-modal-1');">Close</button>-->
+<!--    </jw-modal>-->
+
+
+    <div class="my-2 col-xl-4 col-md-5">
+      <div class="card">
+        <!--        <div *ngIf="userData.image != null && userData.image !==''  " class="card-header border-0 p-0 overflow-hidden img-cover">-->
+        <!--          <img-->
+        <!--            class="w-100"-->
+        <!--            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsXNtvm-pA4lpALltVkyWmOUlTDIfACJjnlA&usqp=CAU"-->
+        <!--            alt=""-->
+        <!--          />-->
+        <!--        </div>-->
+        <div *ngIf="userData.personalImageName == null || userData.personalImageName ===''  " class="avatar">
+          <img
+            src="https://ncbae.edu.pk/alhamra_new/wp-content/uploads/2016/08/person-2-200x200.jpg"
+            alt=""
+          />
+        </div>
+        <div *ngIf="userData.personalImageName != null && userData.personalImageName !==''  " class="avatar">
+          <img
+            [src]="baseURL+
+            '/' +
+             supportPath +
+             '/' +
+             userData.id +
+             '/'+
+             folderPersonalPhotosPath +
+             '/' + userData.personalImageName"
+            alt=""
+          />
+        </div>
+        <div class="card-body">
+          <h2 class="card-title text-center">{{ userData.fullname }}</h2>
+          <div class="data my-3">
+            <div class="part my-2">
+              <i class="far fa-at"></i>
+              {{ userData.email }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-map-marker-alt"></i>
+              {{
+              userData.address
+                ? userData.address
+                : 'none'
+              }}
+            </div>
+            <div *ngIf="userType != 'agent'" class="part my-2">
+              <i class="fal fa-birthday-cake"></i>
+              {{
+              userData.birthYear
+                ? userData.birthDay +'/'+ userData.birthMonth + '/'+userData.birthYear
+                : 'none'
+              }}
+            </div>
+            <div class="part my-2">
+              <i class="fas fa-phone-alt"></i>
+              {{
+              userData.mobile
+                ? userData.mobile
+                : 'null'
+              }}
+            </div>
+            <div class="text-center">
+              <button
+                class="btn btn-default text-white text-capitalize"
+                [routerLink]="['../']"
+              >
+                back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

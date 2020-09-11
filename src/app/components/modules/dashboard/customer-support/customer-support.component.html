@@ -1,0 +1,121 @@
+<div class="card">
+  <div class="card-header bg-white py-0">
+    <div class="mat-card-header">
+      <i class="fas fa-user-headset bg-info"></i>
+      <span class="text-capitalize mx-3">customer support</span>
+    </div>
+  </div>
+  <div class="card-body mat-card-body">
+    <div class="chat-container">
+      <div class="queue">
+        <h2 class="text-capitalize text-primary text-default">queue list</h2>
+        <div class="queue-list">
+          <!-- captains -->
+          <div
+            class="customer"
+            *ngFor="let supportAssign of supportAssignment$ | async"
+          >
+            <div class="img">
+              <img [src]="supportAssign.user.personalImageName" alt="" />
+            </div>
+            <div class="info">
+              <div class="name">
+                <h3 class="text-capitalize text-secondary">
+                  {{ supportAssign.user.fullname }}
+                </h3>
+              </div>
+              <div class="problem-title">
+                <p>{{ supportAssign.support.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-box">
+        <div class="customer">
+          <div class="info">
+            <div class="img">
+              <img [src]="captains[captains.length - 1].image" alt="" />
+            </div>
+            <div class="name-and-status">
+              <h4 class="text-capitalize">
+                {{ captains[captains.length - 1].name }}
+              </h4>
+              <h5 class="text-success">writing...</h5>
+            </div>
+          </div>
+          <div class="chat-actions">
+            <i class="fas fa-file-export text-default"></i>
+            <i class="fas fa-times-circle text-rose"></i>
+          </div>
+        </div>
+        <div class="chat">
+          <div class="messages" *ngFor="let supportMessage of messages">
+            <!-- is support person-->
+            <div *ngIf="supportMessage.isUser == false" class="me">
+              <div class="support-user">
+                <!--                <div class="img">-->
+                <!--                  <img-->
+                <!--                    src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/supportmale-512.png"-->
+                <!--                    alt=""-->
+                <!--                  />-->
+                <!--                </div>-->
+                <div class="info">
+                  <h4 class="text-capitalize">support</h4>
+                  <span>{{
+                    supportMessage.creationDate.toLocaleTimeString()
+                  }}</span>
+                </div>
+              </div>
+              <div class="message">
+                <p class="bg-primary text-white">
+                  {{ supportMessage.message }}
+                </p>
+              </div>
+            </div>
+
+            <div *ngIf="supportMessage.isUser == true" class="customerr">
+              <div class="customerr-user">
+                <div class="img">
+                  <img
+                    src="data:image/jpeg;base64,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"
+                    alt=""
+                  />
+                </div>
+                <div class="info">
+                  <h4 class="text-capitalize">ahmed ali</h4>
+                  <span>{{
+                    supportMessage.creationDate.toLocaleTimeString()
+                  }}</span>
+                </div>
+              </div>
+              <div class="message">
+                <p class="bg-secondary text-white">
+                  {{ supportMessage.message }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="message-field">
+            <div class="input">
+              <input #message type="text" placeholder="Enter message..." />
+            </div>
+            <div class="buttons">
+              <button class="send-file text-default">
+                <i class="fas fa-share-alt"></i>
+              </button>
+              <button
+                (click)="submit(message)"
+                class="sumbit bg-default text-white"
+              >
+                send
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

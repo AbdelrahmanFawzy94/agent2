@@ -1,0 +1,195 @@
+<div class="py-4">
+  <div class="row">
+    <div class="my-2 col-xl-8 col-md-7">
+      <div class="card">
+        <div
+          class="card-header card-header-shadow gradient-info text-white border-0 inside-card"
+        >
+          <h2 class="font-weight-normal mb-1 text-capitalize">Configuration</h2>
+          <p class="card-text mb-1"></p>
+        </div>
+        <div class="card-body">
+          <form class="row">
+
+
+            <div class="form-group col-md-12 my-3">
+              <div class="form-check-for-android">
+                <input
+                  class="form-check-android"
+                  type="checkbox"
+                  id="allowUserToReject"
+                  name="allowUserToReject"
+                  [(ngModel)]="system.allowUserToReject"
+                />
+                <label class="form-check-android-label" for="allowUserToReject"></label>
+                <label for="allowUserToReject" class="mx-3">Allow captain to reject requests</label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12 my-3">
+              <div class="form-check-for-android">
+                <input
+                  class="form-check-android"
+                  type="checkbox"
+                  id="allowUserToWorkOutShift"
+                  name="allowUserToWorkOutShift"
+                  [(ngModel)]="system.allowUserToWorkOutShift"
+                />
+                <label class="form-check-android-label" for="allowUserToWorkOutShift"></label>
+                <label for="allowUserToWorkOutShift" class="mx-3">Allow captain to work out of shift</label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12 my-3">
+              <div class="form-check-for-android">
+                <input
+                  class="form-check-android"
+                  type="checkbox"
+                  id="allowFixedPricePerCountry"
+                  name="allowFixedPricePerCountry"
+                  [(ngModel)]="system.allowFixedPricePerCountry"
+                />
+                <label class="form-check-android-label" for="allowFixedPricePerCountry"></label>
+                <label for="allowFixedPricePerCountry" class="mx-3">Allow fixed price per country</label>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12 my-3">
+              <div class="form-check-for-android">
+                <input
+                  class="form-check-android"
+                  type="checkbox"
+                  id="allowPricePerProductCountry"
+                  name="allowPricePerProductCountry"
+                  [(ngModel)]="system.allowPricePerProductCountry"
+                />
+                <label class="form-check-android-label" for="allowPricePerProductCountry"></label>
+                <label for="allowPricePerProductCountry" class="mx-3">Allow price for product per country</label>
+              </div>
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Reject Per Type</label>
+              <select class="form-control" name="rejectPerType"
+                      (change)="rejectPerTypeOnChange(system.rejectPerTypeId)"
+                      [(ngModel)]="system.rejectPerTypeId">
+                <option *ngFor="let rejectPerType of rejectPerTypes$ | async" [value]="rejectPerType.id">{{rejectPerType.type}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Captain can reject requests {{(system.rejectRequestsNumbers <= 0 )? '(Number)':system.rejectRequestsNumbers}} times in the {{rejectType}}</label>
+              <input
+                type="text"
+                class="form-control"
+                name="rejectRequestsNumbers"
+                [(ngModel)]="system.rejectRequestsNumbers"
+              />
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Reject penalty Per Type</label>
+              <select class="form-control" name="rejectPenaltyPerType"
+                      (change)="rejectPenaltyPerTypeOnChange(system.rejectPenaltyPerTypeId)"
+                      [(ngModel)]="system.rejectPenaltyPerTypeId">
+                <option *ngFor="let rejectPenaltyPerType of rejectPenaltyPerTypes$ | async" [value]="rejectPenaltyPerType.id">{{rejectPenaltyPerType.type}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Captain can't work for {{(system.rejectPenaltyPeriodNumber <= 0 )? '(Number)':system.rejectPenaltyPeriodNumber}} {{rejectPenaltyType}} as penalty for reject requests</label>
+              <input
+                type="text"
+                class="form-control"
+                name="rejectPenaltyPeriodNumber"
+                [(ngModel)]="system.rejectPenaltyPeriodNumber"
+              />
+            </div>
+
+
+
+
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Ignore Per Type</label>
+              <select class="form-control" name="ignorPerType"
+                      (change)="ignorePerTypeOnChange(system.ignorPerTypeId)"
+                      [(ngModel)]="system.ignorPerTypeId">
+                <option *ngFor="let ignorPerType of ignorPerTypes$ | async" [value]="ignorPerType.id">{{ignorPerType.type}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Captain can ignore requests {{(system.ignorRequestsNumbers <= 0 )? '(Number)':system.ignorRequestsNumbers}} times in the {{ignoreType}}</label>
+              <input
+                type="text"
+                class="form-control"
+                name="ignorRequestsNumbers"
+                [(ngModel)]="system.ignorRequestsNumbers"
+              />
+            </div>
+
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Ignore penalty Per Type</label>
+              <select class="form-control" name="rejectPerType"
+                      (change)="ignorePenaltyPerTypeOnChange(system.ignorPenaltyPerTypeId)"
+                      [(ngModel)]="system.ignorPenaltyPerTypeId">
+                <option *ngFor="let ignorePenaltyPerType of ignorePenaltyPerTypes$ | async" [value]="ignorePenaltyPerType.id">{{ignorePenaltyPerType.type}}</option>
+              </select>
+            </div>
+
+            <div class="form-group col-xl-6 col-md-12">
+              <label class="text-capitalize">Captain can't work for {{(system.ignorPenaltyPeriodNumber <= 0 )? '(Number)':system.ignorPenaltyPeriodNumber}} {{ignorePenaltyType}} as penalty for ignore requests</label>
+              <input
+                type="text"
+                class="form-control"
+                name="ignorPenaltyPeriodNumber"
+                [(ngModel)]="system.ignorPenaltyPeriodNumber"
+              />
+            </div>
+
+
+
+
+            <div   class="col-md-12 d-flex justify-content-center">
+              <button (click)="save()" class="btn btn-info text-capitalize">
+                Save
+              </button>
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    <ng-template #orderItems>
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Items</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="row">
+          <div class="form-group col-xl-6 col-md-12">
+
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" >Save</button>
+        <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      </div>
+    </ng-template>
+
+
+  </div>
+</div>
